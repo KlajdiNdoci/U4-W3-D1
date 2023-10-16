@@ -1,4 +1,4 @@
-ESERCIZIO 1
+ESERCIZIO 1 CREAZIONE DATABASE
 
 CREATE TABLE public."Clienti"
 (
@@ -11,5 +11,46 @@ CREATE TABLE public."Clienti"
 );
 
 ALTER TABLE IF EXISTS public."Clienti"
+    OWNER to postgres;
+
+
+CREATE TABLE public."Fatture"
+(
+    "NumeroFattura" serial NOT NULL,
+    "Tipologia" character varying(30) NOT NULL,
+    "Importo" integer NOT NULL,
+    "Iva" integer NOT NULL,
+    "IdCliente" integer NOT NULL,
+    "DataFattura" date NOT NULL,
+    "NumeroFornitore" integer NOT NULL,
+    PRIMARY KEY ("NumeroFattura"),
+    CONSTRAINT "IdCliente" FOREIGN KEY ("IdCliente")
+        REFERENCES public."Clienti" ("NumeroCliente") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "NumeroFornitore" FOREIGN KEY ("NumeroFornitore")
+        REFERENCES public."Fornitori" ("NumeroFornitore") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+ALTER TABLE IF EXISTS public."Fatture"
+    OWNER to postgres;
+
+
+CREATE TABLE public."Prodotti"
+(
+    "IdProdotto" serial NOT NULL,
+    "Descrizione" character varying(100) NOT NULL,
+    "InProduzione" boolean NOT NULL,
+    "InCommercio" boolean NOT NULL,
+    "DataAttivazione" date NOT NULL,
+    "DataDisattivazione" date NOT NULL,
+    PRIMARY KEY ("IdProdotto")
+);
+
+ALTER TABLE IF EXISTS public."Prodotti"
     OWNER to postgres;
 
