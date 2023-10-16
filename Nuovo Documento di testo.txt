@@ -71,3 +71,7 @@ ALTER TABLE IF EXISTS public."Fornitori"
 ESERCIZIO 1
 
 SELECT * FROM clienti WHERE EXTRACT(YEAR FROM data_nascita) = 1982;
+
+ESERCIZIO 2
+
+SELECT * FROM fatture WHERE iva = 20
