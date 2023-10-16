@@ -1,12 +1,12 @@
-ESERCIZIO 1 CREAZIONE DATABASE
+CREAZIONE DATABASE
 
 CREATE TABLE public."Clienti"
 (
-    "NumeroCliente" serial NOT NULL,
-    "Nome" character varying(30) NOT NULL,
-    "Cognome" character varying(30) NOT NULL,
-    "DataNascita" date NOT NULL,
-    "RegioneResidenza" character varying(30) NOT NULL,
+    "numero_cliente" serial NOT NULL,
+    "nome" character varying(30) NOT NULL,
+    "cognome" character varying(30) NOT NULL,
+    "data_nascita" date NOT NULL,
+    "regione_residenza" character varying(30) NOT NULL,
     PRIMARY KEY ("NumeroCliente")
 );
 
@@ -16,13 +16,13 @@ ALTER TABLE IF EXISTS public."Clienti"
 
 CREATE TABLE public."Fatture"
 (
-    "NumeroFattura" serial NOT NULL,
-    "Tipologia" character varying(30) NOT NULL,
-    "Importo" integer NOT NULL,
-    "Iva" integer NOT NULL,
-    "IdCliente" integer NOT NULL,
-    "DataFattura" date NOT NULL,
-    "NumeroFornitore" integer NOT NULL,
+    "numero_fattura" serial NOT NULL,
+    "tipologia" character varying(30) NOT NULL,
+    "importo" integer NOT NULL,
+    "iva" integer NOT NULL,
+    "id_cliente" integer NOT NULL,
+    "data_fattura" date NOT NULL,
+    "numero_fornitore" integer NOT NULL,
     PRIMARY KEY ("NumeroFattura"),
     CONSTRAINT "IdCliente" FOREIGN KEY ("IdCliente")
         REFERENCES public."Clienti" ("NumeroCliente") MATCH SIMPLE
@@ -42,15 +42,32 @@ ALTER TABLE IF EXISTS public."Fatture"
 
 CREATE TABLE public."Prodotti"
 (
-    "IdProdotto" serial NOT NULL,
-    "Descrizione" character varying(100) NOT NULL,
-    "InProduzione" boolean NOT NULL,
-    "InCommercio" boolean NOT NULL,
-    "DataAttivazione" date NOT NULL,
-    "DataDisattivazione" date NOT NULL,
+    "id_prodotto" serial NOT NULL,
+    "descrizione" character varying(100) NOT NULL,
+    "in_produzione" boolean NOT NULL,
+    "in_commercio" boolean NOT NULL,
+    "data_attivazione" date NOT NULL,
+    "data_disattivazione" date NOT NULL,
     PRIMARY KEY ("IdProdotto")
 );
 
 ALTER TABLE IF EXISTS public."Prodotti"
     OWNER to postgres;
 
+CREATE TABLE IF NOT EXISTS public."Fornitori"
+(
+    "numero_fornitore" integer NOT NULL DEFAULT nextval('"Fornitori_NumeroFornitore_seq"'::regclass),
+    "denominazione" character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    "regione_residenza" character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "Fornitori_pkey" PRIMARY KEY ("NumeroFornitore")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Fornitori"
+    OWNER to postgres;
+
+
+ESERCIZIO 1
+
+SELECT * FROM clienti WHERE EXTRACT(YEAR FROM data_nascita) = 1982;
