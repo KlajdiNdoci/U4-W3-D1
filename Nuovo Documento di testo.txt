@@ -75,3 +75,10 @@ SELECT * FROM clienti WHERE EXTRACT(YEAR FROM data_nascita) = 1982;
 ESERCIZIO 2
 
 SELECT * FROM fatture WHERE iva = 20
+
+ESERCIZIO 3
+
+SELECT EXTRACT(YEAR FROM data_fattura) AS anno,
+COUNT(numero_fattura),
+SUM(importo) AS somma_importi
+FROM fatture GROUP BY EXTRACT(YEAR FROM data_fattura) ORDER BY anno
