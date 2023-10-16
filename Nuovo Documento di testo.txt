@@ -106,3 +106,10 @@ ESERCIZIO 7
 SELECT fatture.*, fornitori.denominazione 
 FROM fatture
 INNER JOIN fornitori ON fatture.numero_fornitore = fornitori.numero_fornitore;
+
+ESERCIZIO 8
+
+SELECT clienti.regione_residenza, SUM(fatture.importo) AS totale_importo_per_regione
+FROM fatture
+JOIN clienti ON fatture.id_cliente = clienti.numero_cliente
+GROUP BY clienti.regione_residenza;
