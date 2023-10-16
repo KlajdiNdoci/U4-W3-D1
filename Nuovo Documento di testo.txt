@@ -92,3 +92,11 @@ ESERCIZIO 5
 SELECT EXTRACT(YEAR FROM data_fattura) AS anno,
 COUNT(numero_fattura) AS numero_fatture_iva_20
 FROM fatture WHERE iva = 20 GROUP BY EXTRACT(YEAR FROM data_fattura) 
+
+ESERCIZIO 6
+
+SELECT EXTRACT(YEAR FROM data_fattura) AS anno,
+COUNT(numero_fattura) AS fatture_tipo_a
+FROM fatture WHERE tipologia = 'A'
+GROUP BY EXTRACT(YEAR FROM data_fattura)
+HAVING COUNT(numero_fattura) > 2;
