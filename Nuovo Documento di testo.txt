@@ -86,3 +86,9 @@ FROM fatture GROUP BY EXTRACT(YEAR FROM data_fattura) ORDER BY anno
 ESERCIZIO 4
 
 SELECT * FROM prodotti WHERE EXTRACT(YEAR FROM data_attivazione) = 2017 AND in_produzione OR in_commercio
+
+ESERCIZIO 5
+
+SELECT EXTRACT(YEAR FROM data_fattura) AS anno,
+COUNT(numero_fattura) AS numero_fatture_iva_20
+FROM fatture WHERE iva = 20 GROUP BY EXTRACT(YEAR FROM data_fattura) 
